@@ -1,0 +1,16 @@
+{
+  "name": "Headmaster Command Center",
+  "short_name": "Headmaster",
+  "description": "School operations command center with duty, incident, readiness, and staff radio tools.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D0D0D",
+  "theme_color": "#0D0D0D",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

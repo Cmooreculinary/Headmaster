@@ -1,0 +1,20 @@
+{
+  "name": "@headmaster/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "5.2.1",
+    "express-rate-limit": "8.6.2",
+    "helmet": "8.3.0",
+    "socket.io": "4.8.3"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
