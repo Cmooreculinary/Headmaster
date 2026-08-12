@@ -30,6 +30,15 @@ test('radio inputs are bounded and normalized', () => {
   assert.equal(normalizeText('x'.repeat(281)), null)
 })
 
+test('C1 control characters are stripped from display names and text', () => {
+  // U+0080–U+009F are invisible C1 controls and must be filtered out
+  assert.equal(normalizeDisplayName('Alpha\u0081Bravo'), 'AlphaBravo')
+  assert.equal(normalizeDisplayName('\u009FHidden'), 'Hidden')
+  assert.equal(normalizeText('Clear\u008Ftext'), 'Cleartext')
+  // DEL (U+007F) is also stripped from display names
+  assert.equal(normalizeDisplayName('Delete\u007FChar'), 'DeleteChar')
+})
+
 test('voice payload validation accepts supported bytes only', () => {
   assert.equal(isAllowedAudioType('audio/webm;codecs=opus'), true)
   assert.equal(isAllowedAudioType('audio/wav'), false)

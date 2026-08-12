@@ -116,6 +116,7 @@ export function WalkieTalkie() {
 
     return () => {
       socket.disconnect()
+      if (recorderRef.current?.state === 'recording') recorderRef.current.stop()
       streamRef.current?.getTracks().forEach((track) => track.stop())
       if (maxTimerRef.current !== null) window.clearTimeout(maxTimerRef.current)
       audioUrlsRef.current.forEach((url) => URL.revokeObjectURL(url))
@@ -185,6 +186,7 @@ export function WalkieTalkie() {
           setError('Voice burst was too large. Keep transmissions under 20 seconds.')
           return
         }
+        if (!socketRef.current?.connected) return
 
         const data = await blob.arrayBuffer()
         socketRef.current?.emit(

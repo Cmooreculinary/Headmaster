@@ -6,12 +6,14 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatTimestamp(value: string) {
+  const date = new Date(value)
+  if (isNaN(date.getTime())) return '—'
   return new Intl.DateTimeFormat(undefined, {
     hour: 'numeric',
     minute: '2-digit',
     month: 'short',
     day: 'numeric',
-  }).format(new Date(value))
+  }).format(date)
 }
 
 export function makeId(prefix: string) {

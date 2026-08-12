@@ -161,8 +161,13 @@ httpServer.listen(port, '0.0.0.0', () => {
 
 function shutdown(signal) {
   console.log(`${signal} received; closing radio server`)
+  const forceExit = setTimeout(() => {
+    console.error('Graceful shutdown timed out; forcing exit')
+    process.exit(1)
+  }, 10_000).unref()
   io.close(() => {
     httpServer.close((error) => {
+      clearTimeout(forceExit)
       if (error) {
         console.error('Server shutdown failed', error)
         process.exitCode = 1

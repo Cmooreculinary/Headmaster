@@ -14,7 +14,8 @@ export function normalizeDisplayName(value) {
   const normalized = [...value]
     .filter((character) => {
       const code = character.charCodeAt(0)
-      return code >= 32 && code !== 127
+      // Allow printable ASCII and higher Unicode code points; strip DEL and C1 controls (U+007F–U+009F).
+      return code >= 32 && (code < 127 || code > 159)
     })
     .join('')
     .trim()
@@ -33,7 +34,8 @@ export function normalizeText(value) {
   const text = [...value]
     .filter((character) => {
       const code = character.charCodeAt(0)
-      return code >= 32 || code === 9 || code === 10 || code === 13
+      // Allow tab, LF, CR, printable ASCII, and higher Unicode; strip DEL and C1 controls (U+007F–U+009F).
+      return code === 9 || code === 10 || code === 13 || (code >= 32 && (code < 127 || code > 159))
     })
     .join('')
     .trim()
